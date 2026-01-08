@@ -3,20 +3,19 @@
 
 // External Links
 
-$forum-domain: "#{$forum_domain}";
+$internal-list: str-to-list("#{$internal_domains}", "|");
 $excluded-list: str-to-list("#{$excluded_domains}", "|");
 
 // EXTERNAL SELECTOR
-// Targets links that are not internal, not the forum domain, and not in the excluded list
+// Exclude internal/CDN domains AND excluded domains
 $external-selector: "a[href*='//']:not([href^='/'])";
-@if $forum-domain != "" {
-  $external-selector: #{$external-selector} + ":not([href*='#{$forum-domain}'])";
+@each $domain in $internal-list {
+  $d: str-slice($domain, 1);
+  @if $d != "" { $external-selector: #{$external-selector} + ":not([href*='#{$d}'])"; }
 }
-@each $link in $excluded-list {
-  $trimmed: str-slice($link, 1);
-  @if $trimmed != "" {
-    $external-selector: #{$external-selector} + ":not([href*='#{$trimmed}'])";
-  }
+@each $domain in $excluded-list {
+  $d: str-slice($domain, 1);
+  @if $d != "" { $external-selector: #{$external-selector} + ":not([href*='#{$d}'])"; }
 }
 
 // TRUSTED SELECTOR
