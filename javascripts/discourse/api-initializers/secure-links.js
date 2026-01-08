@@ -10,15 +10,16 @@ export default apiInitializer((api) => {
     (element) => {
 
       // Select all external links except internal domains and relative paths
-      const forumDomain = settings.forum_domain;
-      const excludedDomains = settings.excluded_domains.split("|");
-
-      // Build selector to exclude the forum's own domain
+      const internalDomains = settings.internal_domains?.split("|") || [];
+      const excludedDomains = settings.excluded_domains?.split("|") || [];
+      
+      // Build selector to skip ALL internal/CDN domains
       let selector = "a[href*='//']:not([href^='/'])";
-
-      if (forumDomain) {
-        selector += `:not([href*='${forumDomain.trim()}'])`;
-      }
+      internalDomains.forEach(domain => {
+        if (domain.trim()) {
+          selector += `:not([href*='${domain.trim()}'])`;
+        }
+      });
       
       const links = element.querySelectorAll(selector);
 
@@ -40,7 +41,7 @@ export default apiInitializer((api) => {
       links.forEach((link) => {
         const originalUrl = link.href;
 
-        // Skip trusted (excluded) domains - CSS will handle the lock icon
+        // Skip trusted (excluded) domains
         const isExcluded = excludedDomains.some(d => d.trim() && originalUrl.includes(d.trim()));
         if (isExcluded) {
           return;
