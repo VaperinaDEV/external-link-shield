@@ -1,0 +1,82 @@
+@import "str-to-list";
+
+// External Links
+
+$forum-domain: "#{$forum_domain}";
+$excluded-list: str-to-list("#{$excluded_domains}", "|");
+
+// EXTERNAL SELECTOR
+// Targets links that are not internal, not the forum domain, and not in the excluded list
+$external-selector: "a[href*='//']:not([href^='/'])";
+@if $forum-domain != "" {
+  $external-selector: #{$external-selector} + ":not([href*='#{$forum-domain}'])";
+}
+@each $link in $excluded-list {
+  $trimmed: str-slice($link, 1);
+  @if $trimmed != "" {
+    $external-selector: #{$external-selector} + ":not([href*='#{$trimmed}'])";
+  }
+}
+
+// TRUSTED SELECTOR
+// Targets only the domains specifically listed in settings
+$trusted-selector: "";
+@each $link in $excluded-list {
+  $trimmed: str-slice($link, 1);
+  @if $trimmed != "" {
+    @if $trusted-selector != "" { $trusted-selector: $trusted-selector + ", "; }
+    $trusted-selector: $trusted-selector + "a[href*='#{$trimmed}']";
+  }
+}
+
+.topic-body .cooked {
+  // Unknown external links
+  #{$external-selector} {
+    &:before {
+      content: "";
+      display: inline-block;
+      margin-right: 0.25em;
+      vertical-align: text-top;
+      @include svg-icon(solid, arrow-up-right-from-square, currentColor, 1em, 1em);
+    }
+  }
+
+  // Trusted external links
+  @if $trusted-selector != "" {
+    #{$trusted-selector} {
+      &:before {
+        content: "";
+        display: inline-block;
+        margin-right: 0.25em;
+        vertical-align: text-top;
+        @include svg-icon(solid, lock, var(--success), 1em, 1em);
+      }
+    }
+  }
+}
+
+// Confirmation Modal
+
+.external-link-modal {
+  &__disclaimer {
+    margin-top: 0;
+  }
+  &__confirmation {
+    &-title,
+    &-subtitle {
+      display: block;
+    }
+    &-title {
+      font-weight: 600;
+      margin-bottom: 0.25em;
+    }
+  }
+  &__url {
+    overflow-wrap: anywhere;
+  }
+  &__report-hint {
+    margin-top: 0.5em;
+    font-size: var(--font-down-2);
+    color: var(--primary-high);
+  }
+}

@@ -1,0 +1,10 @@
+en:
+  secure_links:
+    login_to_view: "[link available only when logged in]"
+    first_trust_level_to_view: "[link available from trust level 1]"
+    click_to_view: "[view link]"
+    leaving_confirmation_title: "Open External Link"
+    leaving_confirmation_description_first: "This link leads to a website outside of us. We are not responsible for the content of external websites."
+    leaving_confirmation_description_second: "Are you sure you want to open this external site?"
+    leaving_confirmation_description_third: "You will be taken to the following website"
+    leaving_confirmation_report_hint: "If you find a suspicious or harmful link, please report the post using the flag icon!"

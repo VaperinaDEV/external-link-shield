@@ -1,0 +1,17 @@
+@import "svg-icons/fontawesome/solid";
+
+$svg-prefix: 'data:image/svg+xml;utf-8,';
+
+@mixin svg-icon($icon-set, $icon-name, $icon-color, $width, $height) {
+  
+  @if $icon-set == 'solid' {
+    $svg-url: $svg-prefix + map-get($solid, $icon-name);
+    mask-image: url($svg-url);
+  }
+  
+  width: $width;
+  height: $height;
+  background: $icon-color;
+  mask-size: $width $height;
+  mask-repeat: no-repeat;
+}

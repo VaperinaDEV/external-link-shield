@@ -1,0 +1,39 @@
+forum_domain:
+  type: string
+  default: ""
+  description: "Primary forum domain (e.g., example.com). Links matching this will have NO icon and NO modal."
+  
+excluded_domains:
+  type: list
+  default: ""
+  description: "Trusted external domains (e.g., youtube.com|google.com). These will show a LOCK icon but skip the modal/shielding."
+  
+enable_anonymous_blocking:
+  type: bool
+  default: true
+  description: "Replace external links for anonymous users with a login prompt."
+
+anonymous_redirect_url:
+  type: string
+  default: "/login"
+  description: "URL where anonymous users are redirected when trying to access external links. Leave empty to disable redirection."
+
+enable_tl0_blocking:
+  type: bool
+  default: true
+  description: "Replace external links for TL0 users with a trust-level information link."
+
+tl0_redirect_url:
+  type: string
+  default: ""
+  description: "URL where TL0 users are redirected when click the link. Leave empty to disable redirection."
+
+enable_tl1_manual_reveal:
+  type: bool
+  default: true
+  description: "Require TL1 users to manually reveal external links."
+
+enable_exit_confirmation:
+  type: bool
+  default: true
+  description: "Show an exit confirmation modal when users click external links."

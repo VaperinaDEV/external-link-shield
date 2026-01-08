@@ -1,0 +1,12 @@
+@function str-to-list($string, $separator, $startAt: 1) {
+  $item: str-slice($string, $startAt);
+  $list: ();
+  $index: str-index($item, $separator);
+  @if $index == null {
+    $list: ($item);
+  } @else {
+    $list: (str-slice($item, 1, $index - 1));
+    $list: join($list, str-to-list($item, $separator, $startAt: $index + 1));
+  }
+  @return $list;
+}
