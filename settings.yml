@@ -1,7 +1,7 @@
-forum_domain:
-  type: string
+internal_domains:
+  type: list
   default: ""
-  description: "Primary forum domain (e.g., example.com). Links matching this will have NO icon and NO modal."
+  description: "Your forum and CDN domains (e.g., example.com|example-cdn.com). These will have NO icon and NO modal."
   
 excluded_domains:
   type: list
