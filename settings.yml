@@ -37,3 +37,14 @@ enable_exit_confirmation:
   type: bool
   default: true
   description: "Show an exit confirmation modal when users click external links."
+
+exit_confirmation_continue_icon:
+  type: string
+  default: "arrow-up-right-from-square"
+  description: "Change the exit confirmation modal continue button icon."
+
+svg_icons:
+  default: "arrow-up-right-from-square"
+  type: list
+  list_type: "compact"
+  description: "List of FontAwesome 6 icons used in this theme component"
