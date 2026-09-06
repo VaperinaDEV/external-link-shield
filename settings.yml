@@ -39,13 +39,13 @@ enable_exit_confirmation:
   description: "Show an exit confirmation modal when users click external links."
 
 exit_confirmation_continue_icon:
-  type: string
   default: "arrow-up-right-from-square"
+  type: icon
   description: "The icon shown in the exit confirmation modal continue button."
 
 external_link_icon:
-  type: string
   default: "arrow-up-right-from-square"
+  type: icon
   description: "The icon shown next to unknown external links."
 
 external_link_icon_color:
@@ -54,8 +54,8 @@ external_link_icon_color:
   description: "Color for the external link icon (e.g. #999999 or var(--primary-medium)). Leave empty to match the surrounding text color."
 
 trusted_link_icon:
-  type: string
   default: "lock"
+  type: icon
   description: "The icon shown next to trusted/excluded domain links."
 
 trusted_link_icon_color:
