@@ -1,57 +1,43 @@
-@import "str-to-list";
-@import "svg-icon-mixins";
-
 // External Links
 
-$internal-list: str-to-list("#{$internal_domains}", "|");
-$excluded-list: str-to-list("#{$excluded_domains}", "|");
-
-// EXTERNAL SELECTOR
-// Exclude internal/CDN domains AND excluded domains
-$external-selector: "a[href*='//']:not([href^='/'])";
-@each $domain in $internal-list {
-  $d: str-slice($domain, 1);
-  @if $d != "" { $external-selector: #{$external-selector} + ":not([href*='#{$d}'])"; }
-}
-@each $domain in $excluded-list {
-  $d: str-slice($domain, 1);
-  @if $d != "" { $external-selector: #{$external-selector} + ":not([href*='#{$d}'])"; }
-}
-
-// TRUSTED SELECTOR
-// Targets only the domains specifically listed in settings
-$trusted-selector: "";
-@each $link in $excluded-list {
-  $trimmed: str-slice($link, 1);
-  @if $trimmed != "" {
-    @if $trusted-selector != "" { $trusted-selector: $trusted-selector + ", "; }
-    $trusted-selector: $trusted-selector + "a[href*='#{$trimmed}']";
-  }
-}
-
 .topic-body .cooked {
-  // Unknown external links
-  #{$external-selector} {
-    &:before {
-      content: "";
-      display: inline-block;
-      margin-right: 0.25em;
-      vertical-align: text-top;
-      @include svg-icon(solid, arrow-up-right-from-square, currentColor, 1em, 1em);
+  .secure-link-icon {
+    display: inline-flex;
+    align-items: center;
+    vertical-align: text-top;
+
+    .d-icon {
+      width: 1em;
+      height: 1em;
     }
   }
 
-  // Trusted external links
-  @if $trusted-selector != "" {
-    #{$trusted-selector} {
-      &:before {
-        content: "";
-        display: inline-block;
-        margin-right: 0.25em;
-        vertical-align: text-top;
-        @include svg-icon(solid, lock, var(--success), 1em, 1em);
-      }
-    }
+  .secure-link-icon--before {
+    margin-right: 0.25em;
+  }
+
+  .secure-link-icon--after {
+    margin-left: 0.25em;
+  }
+}
+
+// TL1 "click to view" reveal button
+// (a real <button> now for keyboard/screen-reader accessibility — reset
+// native button chrome so it still reads as an inline link)
+
+.secure-links {
+  display: inline;
+  padding: 0;
+  border: none;
+  background: none;
+  font: inherit;
+  color: var(--tertiary);
+  cursor: pointer;
+  text-decoration: none;
+
+  &:hover,
+  &:focus-visible {
+    text-decoration: underline;
   }
 }
 

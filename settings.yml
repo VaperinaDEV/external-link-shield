@@ -41,10 +41,38 @@ enable_exit_confirmation:
 exit_confirmation_continue_icon:
   type: string
   default: "arrow-up-right-from-square"
-  description: "Change the exit confirmation modal continue button icon."
+  description: "The icon shown in the exit confirmation modal continue button."
+
+external_link_icon:
+  type: string
+  default: "arrow-up-right-from-square"
+  description: "The icon shown next to unknown external links."
+
+external_link_icon_color:
+  type: string
+  default: ""
+  description: "Color for the external link icon (e.g. #999999 or var(--primary-medium)). Leave empty to match the surrounding text color."
+
+trusted_link_icon:
+  type: string
+  default: "lock"
+  description: "The icon shown next to trusted/excluded domain links."
+
+trusted_link_icon_color:
+  type: string
+  default: "var(--success)"
+  description: "Color for the trusted link icon (e.g. #999999 or var(--primary-medium)). Leave empty to match the surrounding text color."
+
+link_icon_position:
+  type: enum
+  default: "before"
+  choices:
+    - "before"
+    - "after"
+  description: "Whether the icon appears before or after the link text."
 
 svg_icons:
-  default: "arrow-up-right-from-square"
+  default: "arrow-up-right-from-square|arrow-down"
   type: list
   list_type: "compact"
-  description: "List of FontAwesome 6 icons used in this theme component"
+  description: "List of FontAwesome 6 icons used in this theme component."
